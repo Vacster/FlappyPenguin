@@ -12,22 +12,33 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 
 public class MyGdxGame extends ApplicationAdapter {
 	SpriteBatch batch;
-	Texture img;
+	Texture img, backgroundimg, tuboimg, pisoimg;
 	Stage stage;
-	Actor penguin;
+	Actor penguin, background1, background2, tubo, piso;
 	Viewport viewport;
 	float Ypos = 0;
 	
 	@Override
 	public void create () {
-		batch = new SpriteBatch();
 		img = new Texture("penguin.png");
+		backgroundimg = new Texture("background.png");
+		tuboimg = new Texture("pipe.png");
+		pisoimg = new Texture("floor.png");
 		
 		viewport = new FitViewport(450, 800);
 		stage = new Stage();
 		
+		background1 = new Background(backgroundimg, true);
+		background2 = new Background(backgroundimg, false);
 		penguin = new Penguin(img);
+		tubo = new Tubo(tuboimg, (Penguin)penguin);
+		piso = new Piso(pisoimg, (Penguin)penguin, (Tubo)tubo);
+
+		stage.addActor(background1);
+		stage.addActor(background2);
+		stage.addActor(tubo);
 		stage.addActor(penguin);
+		stage.addActor(piso);
 	}
 
 	@Override
